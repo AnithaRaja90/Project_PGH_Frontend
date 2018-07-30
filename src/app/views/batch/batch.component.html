@@ -1,0 +1,357 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>Showing </strong> Form
+        </div>
+        <div class="card-body">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <div class="row">
+              <div class="form-group col-sm-4">
+                  <label for="name">Zonal</label>
+                  <select [(ngModel)]="batch.zoneId" id="zoneId" name="zoneId" class="form-control"
+                  (change)="getSector(batch.zoneId)">
+                    <option value="0" disabled selected>Select Zonal Name</option>
+                    <option *ngFor="let zone of zonals" value={{zone.id}}>{{zone.zoneName}}</option>
+                  </select>
+              </div>
+              <div class="form-group col-sm-4">
+                  <label for="name">Sector</label>
+                  <select [(ngModel)]="batch.sectorId" id="sectorId" name="sectorId" class="form-control" 
+                  (change)="getNursery(batch.sectorId)">
+                    <option value="0" disabled selected>Select Sector Name</option>
+                    <option *ngFor="let sector of zonalSectors" value={{sector.id}}>{{sector.sectorName}}</option>
+                  </select>
+              </div>
+              <div class="form-group col-sm-4">
+                <label for="name">Nursery</label>
+                <select [(ngModel)]="batch.nurseryId" id="nurseryId" name="nurseryId" class="form-control">
+                    <option value="0" disabled selected>Select Nursery Name</option>
+                    <option *ngFor="let nursery of sectorNurserys" value={{nursery.id}}>{{nursery.nurseryName}}</option>
+                  </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-sm-4">
+                  <label for="name">Variety</label>
+                  <select [(ngModel)]="batch.pickListId" id="pickListId" name="pickListId" class="form-control"
+                  (change)="getVariety(batch.pickListId)">
+                    <option value="0" disabled selected>Select</option>
+                    <option *ngFor="let pickList of pickLists" value={{pickList.id}}>{{pickList.pickListName}}</option>
+                  </select>
+              </div>
+              <div class="form-group col-sm-4">
+                  <label for="name">Variety</label>
+                  <select [(ngModel)]="batch.varietyId" id="varietyId" name="varietyId" class="form-control"
+                  (change)="getCategory(batch.varietyId)">
+                    <option value="0" disabled selected>Select Variety Name</option>
+                    <option *ngFor="let val of variety" value={{val.id}}>{{val.pickListValue}}</option>
+                  </select>
+              </div>
+              <div class="form-group col-sm-4">
+                <label for="name">Category</label>
+                <select [(ngModel)]="batch.categoryId" id="categoryId" name="categoryId" class="form-control">
+                  <option value="0" disabled selected>Select Category Name</option>
+                  <option *ngFor="let category of categorys" value={{category.id}}>{{category.pickListValue}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-sm-4">
+                  <label for="name">Batch No.:</label>
+                  <input [(ngModel)]="batch.batchNo" type="text" id="batchNo" name="batchNo" 
+                  class="form-control" placeholder="Batch No.">
+              </div>
+              <div class="form-group col-sm-4">
+                  <label for="name">Batch Name</label>
+                  <input [(ngModel)]="batch.batchName" type="text" id="batchName" 
+                  name="batchName" class="form-control" placeholder="Batch Name">
+              </div>
+              <div class="form-group col-sm-4">
+                  <label for="name">Date</label>
+                  <input [(ngModel)]="batch.sowingDate" type="text" id="sowingDate" name="sowingDate" 
+                  class="form-control" placeholder="Date">
+                  <label>Date format must be "DD/MM/YYYY"</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-sm-4">
+                  <label for="name">Quantity</label>
+                  <input [(ngModel)]="batch.quantity" type="text" id="quantity" name="quantity" 
+                  class="form-control" placeholder="Quantity">
+              </div>
+              <div class="form-group col-sm-4">
+                  <label for="name">Motherbed</label>
+                  <input [(ngModel)]="batch.motherBed" type="text" id="motherBed" name="motherBed" 
+                  class="form-control" placeholder="Motherbed">
+              </div>
+              <div class="form-group col-sm-4">
+                  <label for="name">Showing Type</label>
+                  <select [(ngModel)]="batch.showingType" id="select1" name="select1" class="form-control">
+                    <option value="0" disabled selected>Showing Type</option>
+                    <option value="1">Seed</option>
+                    <option value="2">Direct</option>
+                  </select>
+                  <!-- <div class="col-form-label">
+                    <div class="form-check form-check-inline mr-1" id="inline-radios">
+                      <input class="form-check-input" type="radio" name="inline-radios" id="inlineRadio1" value="option1">
+                      <label class="form-check-label" for="inlineRadio1">Seed</label>
+                    </div>
+                    <div class="form-check form-check-inline mr-1">
+                      <input class="form-check-input" type="radio" name="inline-radios" id="inlineRadio2" value="option2">
+                      <label class="form-check-label" for="inlineRadio2">Direct</label>
+                    </div>
+                  </div> -->
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary" (click)="createBatch()"><i class="fa fa-dot-circle-o"></i> Create Batch</button>
+          <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <tabset>
+        <tab>
+          <ng-template tabHeading><i class="fa fa-align-justify"></i> Batch Management List</ng-template>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Batch No.</th>
+                <th>Batch Name</th>                  
+                <th>Nursery Name</th>
+                <th>Variety</th>
+                <th>Category</th>
+                <th>Date</th>
+                <th>Quantity</th>
+                <th>Motherbed</th>
+                <th>Showing Type</th>
+                <th>Closed Date</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let list of batchs">
+                <td>{{list.batchNo}}</td>
+                <td>{{list.batchName}}</td>
+                <td>{{list.nurseryId}}</td>
+                <td>{{list.varietyId}}</td>
+                <td>{{list.categoryId}}</td>
+                <td>{{list.sowingDate | date: 'dd/MM/yyyy'}}</td>
+                <td>{{list.quantity}}</td>
+                <td>{{list.motherBed}}</td>
+                <td>{{list.closedDate | date: 'dd/MM/yyyy'}}</td>
+                <td *ngIf="list.showingType == 1">Seed</td>
+                <td *ngIf="list.showingType == 2">Direct</td>
+                <td *ngIf="((list.showingType != 1) && (list.showingType != 2))"></td>
+                <td>
+                  <i class="fa fa-cloud-upload fa-lg mt-2 ml-2" (click)="updateShift(list)"></i>
+                  <i class="fa fa-cloud-download fa-lg mt-2 ml-2" (click)="updateDamage(list)"></i>
+                  <!-- <i class="fa fa-pencil fa-sm mt-2 ml-2"></i>  -->
+                  <i class="fa fa-trash fa-sm mt-2 ml-2" (click)="deleteBatch(list)"></i>
+                  <i *ngIf="list.status != -1" class="fa fa-close fa-lg mt-2 ml-2" (click)="updateBatch(list)"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          </ul>
+        </tab>
+        <tab>
+          <ng-template tabHeading><i class="icon-basket-loaded" (click)="getShadeAreaList()"> Shade Area List</i></ng-template>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Batch Name</th>                  
+                <th>Date</th>
+                <th>Quantity</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let temp of shadeAreas">
+                <td>{{temp.batchId}}</td>
+                <td>{{temp.date | date: 'dd/MM/yyyy'}}</td>
+                <td>{{temp.noOfSeedlings}}</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          </ul>
+        </tab>
+        <tab>
+          <ng-template tabHeading><i class="fa fa-arrow-down" (click)="getDamageList()"> Damage List</i></ng-template>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Batch Name</th>                  
+                <th>Date</th>
+                <th>Quantity</th>
+                <th>Reason</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let damageVal of damages">
+                <td>{{damageVal.batchId}}</td>
+                <td>{{damageVal.date | date: 'dd/MM/yyyy'}}</td>
+                <td>{{damageVal.noOfQuantity}}</td>
+                <td>{{damageVal.description}}</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          </ul>
+        </tab>
+      </tabset>
+    </div>
+  </div>
+
+  <!-- <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Batch Management List
+        </div>
+        <div class="card-body">
+          
+        </div>
+      </div>
+    </div>
+  </div> -->
+</div>
+
+<div bsModal #closeBatchModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-primary" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update {{updateBatchValue.batchName}}</h5>
+        <button type="button" class="close" (click)="closeBatchModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <input [(ngModel)]="updateBatchValue.id" type="hidden" id="id" name="id" class="form-control">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Closed Date</label>
+              <input [(ngModel)]="updateBatchValue.closedDate" type="text" id="closedDate" name="closedDate" 
+                  class="form-control" placeholder="Date 'DD/MM/YYYY'">
+            </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeBatchModal.hide()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="closeBatch(updateBatchValue)">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div bsModal #damageModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-primary" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update {{updateBatchValue.batchName}}</h5>
+        <button type="button" class="close" (click)="damageModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <input [(ngModel)]="updateBatchValue.id" type="hidden" id="id" name="id" class="form-control">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Damage Date</label>
+              <input [(ngModel)]="updateBatchValue.date" type="text" id="date" name="date" 
+                  class="form-control" placeholder="Date 'DD/MM/YYYY'">
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Quantity</label>
+              <div class="col-md-9">
+                <input [(ngModel)]="updateBatchValue.noOfQuantity" type="text" 
+                id="noOfQuantity" name="noOfQuantity" class="form-control" placeholder="Quantity">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Reason</label>
+              <div class="col-md-9">
+                <input [(ngModel)]="updateBatchValue.description" type="text" 
+                id="description" name="description" class="form-control" 
+                placeholder="Reason">
+              </div>
+            </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="damageModal.hide()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="createDamage(updateBatchValue)">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div bsModal #shiftBatchModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-primary" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update {{updateBatchValue.batchName}}</h5>
+        <button type="button" class="close" (click)="shiftBatchModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <input [(ngModel)]="updateBatchValue.id" type="hidden" id="id" name="id" class="form-control">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Date</label>
+              <input [(ngModel)]="updateBatchValue.date" type="text" id="date" name="date" 
+                  class="form-control" placeholder="Date 'DD/MM/YYYY'">
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Quantity</label>
+              <div class="col-md-9">
+                <input [(ngModel)]="updateBatchValue.noOfSeedlings" type="text" 
+                id="noOfSeedlings" name="noOfSeedlings" class="form-control" placeholder="Quantity">
+              </div>
+            </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="shiftBatchModal.hide()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="createShadeArea(updateBatchValue)">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

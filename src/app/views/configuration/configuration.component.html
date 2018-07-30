@@ -1,0 +1,604 @@
+<div class="animated fadeIn">
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <strong>Zonal Creation</strong> Form
+        </div>
+        <div class="card-body">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Zonal Name</label>
+              <div class="col-md-9">
+                <input [(ngModel)]="zonal.zoneName" type="text" id="zoneName" name="zoneName" class="form-control" placeholder="Name">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="textarea-input">Address</label>
+              <div class="col-md-9">
+                <textarea [(ngModel)]="zonal.zoneAddress" id="zoneAddress" name="zoneAddress" rows="3" class="form-control" placeholder="Address.."></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary" (click)="createZone()" ><i class="fa fa-dot-circle-o"></i> Submit</button>
+          <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Zone List
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Zone Name</th>
+                <th>Zone Address</th>
+                <th>Incharge</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let value of zonals">
+                <td>{{value.zoneName}}</td>
+                <td>{{value.zoneAddress}}</td>
+                <td></td>
+                <td>
+                  <i class="fa fa-pencil fa-sm mt-2" data-toggle="modal" (click)="getZoneValue(value)"></i> 
+                  <i class="fa fa-trash fa-sm mt-2 ml-2" (click)="deleteZonal(value)"></i>
+                  <!-- [ngStyle]=""  -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <strong>Sector Creation</strong> Form
+        </div>
+        <div class="card-body">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="select1">Zone</label>
+              <div class="col-md-9">
+                <select [(ngModel)]="sector.zoneId" id="zoneId" name="zoneId" class="form-control">
+                  <option value="0" disabled selected>Select Zonal Name</option>
+                  <option *ngFor="let zone of zonals" value={{zone.id}}>{{zone.zoneName}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Sector Name</label>
+              <div class="col-md-9">
+                <input [(ngModel)]="sector.sectorName" type="text" id="text-input" name="text-input" class="form-control" placeholder="Name">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="textarea-input">Address</label>
+              <div class="col-md-9">
+                <textarea [(ngModel)]="sector.sectorAddress" id="textarea-input" name="textarea-input" rows="3" class="form-control" placeholder="Address.."></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary" (click)="createSector()" ><i class="fa fa-dot-circle-o"></i> Submit</button>
+          <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Sector List
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Sector Name</th>
+                <th>Sector Address</th>
+                <th>Zonal Name</th>
+                <th>Incharge</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let sector of sectors">
+                <td>{{sector.sectorName}}</td>
+                <td>{{sector.sectorAddress}}</td>
+                <td>{{sector.zoneId}}</td>
+                <td></td>
+                <td>
+                    <i class="fa fa-pencil fa-sm mt-2" data-toggle="modal" (click)="getSectorValue(sector)"></i> 
+                    <i class="fa fa-trash fa-sm mt-2 ml-2" (click)="deleteSector(sector)"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <strong>Nursery Creation</strong> Form
+        </div>
+        <div class="card-body">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">Zonal</label>
+                <div class="col-md-9">
+                  <select [(ngModel)]="nursery.zoneId" id="zoneId" name="zoneId" class="form-control" 
+                  (change)="getSector(nursery.zoneId)">
+                      <option value="0" disabled selected>Select Zonal Name</option>
+                      <option *ngFor="let zone of zonals" value={{zone.id}}>{{zone.zoneName}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                  <label class="col-md-3 col-form-label" for="select1">Sector</label>
+                  <div class="col-md-9">
+                    <select [(ngModel)]="nursery.sectorId" id="sectorId" name="sectorId" class="form-control">
+                      <option value="0" disabled selected>Select Sector Name</option>
+                      <option *ngFor="let sectorValue of zonalSectors" value={{sectorValue.id}}>{{sectorValue.sectorName}}</option>
+                    </select>
+                  </div>
+                </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Nursery Name</label>
+              <div class="col-md-9">
+                <input [(ngModel)]="nursery.nurseryName" type="text" id="text-input" name="text-input" class="form-control" placeholder="Name">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="textarea-input">Address</label>
+              <div class="col-md-9">
+                <textarea [(ngModel)]="nursery.nurseryAddress" id="textarea-input" name="textarea-input" rows="3" class="form-control" placeholder="Address.."></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary" (click)="createNursery()" ><i class="fa fa-dot-circle-o"></i> Submit</button>
+          <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Nursey List
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Zonal Name</th>
+                <th>Sector Name</th>
+                <th>Nursery Name</th>
+                <th>Nursery Address</th>
+                <th>Incharge</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let nursery of nurserys">
+                <td></td>
+                <td>{{nursery.sectorId}}</td>
+                <td>{{nursery.nurseryName}}</td>
+                <td>{{nursery.nurseryAddress}}</td>
+                <td></td>
+                <td>
+                    <i class="fa fa-pencil fa-sm mt-2" data-toggle="modal" (click)="getNurseryValue(nursery)"></i> 
+                    <i class="fa fa-trash fa-sm mt-2 ml-2" (click)="deleteNursery(nursery)"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <strong>PickList Creation</strong> Form
+        </div>
+        <div class="card-body">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Pick List Name</label>
+              <div class="col-md-9">
+                <input [(ngModel)]="pickList.pickListName" type="text" id="pickListName" name="pickListName" 
+                class="form-control" placeholder="Name">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary" (click)="createPickList()" ><i class="fa fa-dot-circle-o"></i> Submit</button>
+          <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Pick List
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Pick List Name</th>
+                <!-- <th>Created By</th>
+                <th>Created At</th> -->
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pickList of pickLists">
+                <td>{{pickList.pickListName}}</td>
+                <td>
+                    <i class="fa fa-pencil fa-sm mt-2" data-toggle="modal" (click)="getPickListValue(pickList)"></i> 
+                    <i class="fa fa-trash fa-sm mt-2 ml-2" (click)="deletePickList(pickList)"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <strong>PickListValue Creation</strong> Form
+        </div>
+        <div class="card-body">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="select1">PickList Name</label>
+              <div class="col-md-9">
+                <select [(ngModel)]="pickListValue.pickListId" id="pickListId" name="pickListId" class="form-control">
+                  <option value="0" disabled selected>Select PickList Name</option>
+                  <option *ngFor="let val of pickLists" value={{val.id}}>{{val.pickListName}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Pick List Value</label>
+              <div class="col-md-9">
+                <input [(ngModel)]="pickListValue.pickListValue" type="text" id="pickListValue" name="pickListValue" 
+                class="form-control" placeholder="Name">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary" (click)="createPickListValue()" ><i class="fa fa-dot-circle-o"></i> Submit</button>
+          <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Pick List Value
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Pick List Name</th>
+                <th>Pick List Value</th>
+                <th>Variety Name</th>
+                <!-- <th>Created At</th> -->
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pickListvalue of pickListValues">
+                <td>{{pickListvalue.pickListId}}</td>
+                <td>{{pickListvalue.pickListValue}}</td>
+                <td>{{pickListvalue.selfId}}</td>
+                <td>
+                  <i class="fa fa-plus fa-sm mt-2" data-toggle="modal" (click)="openChildModel(pickListvalue)"></i> 
+                  <i class="fa fa-pencil fa-sm mt-2 ml-2" data-toggle="modal" (click)="createPickListValue(pickListvalue)"></i> 
+                  <i class="fa fa-trash fa-sm mt-2 ml-2" (click)="deletePickListValue(pickListvalue)"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #zoneUpdateModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-primary" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update {{updateZonal.zoneName}}</h5>
+        <button type="button" class="close" (click)="zoneUpdateModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <input [(ngModel)]="updateZonal.id" type="hidden" id="id" name="id" class="form-control">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Zonal Name</label>
+              <div class="col-md-9">
+                <input [(ngModel)]="updateZonal.zoneName" type="text" id="zoneName" name="zoneName" class="form-control" placeholder="Name">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="textarea-input">Address</label>
+              <div class="col-md-9">
+                <textarea [(ngModel)]="updateZonal.zoneAddress" id="zoneAddress" name="zoneAddress" rows="3" class="form-control" placeholder="Address.."></textarea>
+              </div>
+            </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="zoneUpdateModal.hide()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="updateZone(updateZonal)">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div bsModal #sectorUpdateModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-primary" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update {{updateSector.sectorName}}</h5>
+        <button type="button" class="close" (click)="sectorUpdateModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+          <input [(ngModel)]="updateSector.id" type="hidden" id="id" name="id" class="form-control">
+          <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="select1">Zone</label>
+              <div class="col-md-9">
+                <select [(ngModel)]="updateSector.zoneId" id="zoneId" name="zoneId" class="form-control">
+                  <option value="0" disabled selected>Select Zonal Name</option>
+                  <option *ngFor="let zone of zonals" value={{zone.id}}>{{zone.zoneName}}</option>
+                </select>
+              </div>
+            </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Sector Name</label>
+            <div class="col-md-9">
+              <input [(ngModel)]="updateSector.sectorName" type="text" id="text-input" name="text-input" class="form-control" placeholder="Name">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="textarea-input">Address</label>
+            <div class="col-md-9">
+              <textarea [(ngModel)]="updateSector.sectorAddress" id="textarea-input" name="textarea-input" rows="3" class="form-control" placeholder="Address.."></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="sectorUpdateModal.hide()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="updateSectorValue(updateSector)">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div bsModal #nurseryUpdateModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-primary" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update {{updateNursery.nurseryName}}</h5>
+        <button type="button" class="close" (click)="nurseryUpdateModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+          <input [(ngModel)]="updateNursery.id" type="hidden" id="id" name="id" class="form-control">
+          <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="select1">Zonal</label>
+              <div class="col-md-9">
+                <select [(ngModel)]="updateNursery.zoneId" id="zoneId" name="zoneId" class="form-control" 
+                (change)="getSector(updateNursery.zoneId)">
+                    <option value="0" disabled selected>Select Zonal Name</option>
+                    <option *ngFor="let zone of zonals" value={{zone.id}}>{{zone.zoneName}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">Sector</label>
+                <div class="col-md-9">
+                  <select [(ngModel)]="updateNursery.sectorId" id="sectorId" name="sectorId" class="form-control">
+                    <option value="0" disabled selected>Select Sector Name</option>
+                    <option *ngFor="let sectorValue of zonalSectors" value={{sectorValue.id}}>{{sectorValue.sectorName}}</option>
+                  </select>
+                </div>
+              </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Nursery Name</label>
+            <div class="col-md-9">
+              <input [(ngModel)]="updateNursery.nurseryName" type="text" id="text-input" name="text-input" class="form-control" placeholder="Name">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="textarea-input">Address</label>
+            <div class="col-md-9">
+              <textarea [(ngModel)]="updateNursery.nurseryAddress" id="textarea-input" name="textarea-input" rows="3" class="form-control" placeholder="Address.."></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="nurseryUpdateModal.hide()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="updateNurseryValue(updateNursery)">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div bsModal #pickListUpdateModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-primary" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update {{updatePickList.pickListName}}</h5>
+        <button type="button" class="close" (click)="pickListUpdateModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <input [(ngModel)]="updatePickList.id" type="hidden" id="id" name="id" class="form-control">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Zonal Name</label>
+              <div class="col-md-9">
+                <input [(ngModel)]="updatePickList.pickListName" type="text" id="pickListName" name="pickListName" class="form-control" placeholder="Name">
+              </div>
+            </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="pickListUpdateModal.hide()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="updatePick(updatePickList)">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div bsModal #pickListValueUpdateModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-primary" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update {{updatePickListValue.pickListValue}}</h5>
+        <button type="button" class="close" (click)="pickListValueUpdateModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <input [(ngModel)]="updatePickListValue.id" type="hidden" id="id" name="id" class="form-control">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Zonal Name</label>
+              <div class="col-md-9">
+                <input [(ngModel)]="updatePickListValue.pickListValue" type="text" id="pickListValue" 
+                name="pickListValue" class="form-control" placeholder="Name">
+              </div>
+            </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="pickListValueUpdateModal.hide()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="updatePickValue(updatePickListValue)">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div bsModal #subPickListModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-primary" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Sub Category</h5>
+        <button type="button" class="close" (click)="subPickListModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <input [(ngModel)]="updatePickListValue.id" type="hidden" id="id" name="id" class="form-control">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Zonal Name</label>
+              <div class="col-md-9">
+                <input [(ngModel)]="updatePickListValue.subChildValue" type="text" id="subChildValue" 
+                name="subChildValue" class="form-control" placeholder="Name">
+              </div>
+            </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="subPickListModal.hide()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="addChild(updatePickListValue)">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
